@@ -1,0 +1,127 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Account Comfirmation Verification</title>
+    <link href="~/Content/Authentication Styles/OTPVerification.css" rel="stylesheet" />
+    <link href="~/Bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+
+        .center-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div class="center-container">
+        <div class="card">
+            <form class="form" id="OTPForm" action="../Register/RegisrationOTPVerification" method="post" enctype="multipart/form-data">
+                <div class="title">
+                    OTP
+                </div>
+                <div class="title">
+                    Verification Code
+                </div>
+                <p class="message">
+                    We have sent a verification code to your email.
+                </p>
+                <div class="inputs">
+                    <input id="input1" name="otp1" pattern="[0-9]" type="text" maxlength="1" required>
+                    <input id="input2" name="otp2" pattern="[0-9]" type="text" maxlength="1" required>
+                    <input id="input3" name="otp3" pattern="[0-9]" type="text" maxlength="1" required>
+                    <input id="input4" name="otp4" pattern="[0-9]" type="text" maxlength="1" required>
+                </div>
+                <button class="action" id="verifyAccount" type="button">verify me</button>
+            </form>
+        </div>
+    </div>
+    <script src="~/Bootstrap/script/bootstrap.min.js"></script>
+    <script src="~/Bootstrap/script/jquery-3.3.1.slim.min.js"></script>
+    <script src="~/Bootstrap/script/popper.min.js"></script>
+    <script src="~/Scripts/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(function () {
+            $("input[name='otp1']").on('input', function (e) {
+                $(this).val($(this).val().replace(/[^0-9]/g, ''));
+            });
+        });
+        $(function () {
+            $("input[name='otp2']").on('input', function (e) {
+                $(this).val($(this).val().replace(/[^0-9]/g, ''));
+            });
+        });
+        $(function () {
+            $("input[name='otp3']").on('input', function (e) {
+                $(this).val($(this).val().replace(/[^0-9]/g, ''));
+            });
+        });
+        $(function () {
+            $("input[name='otp4']").on('input', function (e) {
+                $(this).val($(this).val().replace(/[^0-9]/g, ''));
+            });
+        });
+
+
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        document.querySelector('#verifyAccount').onclick = () => {
+            // Trigger Bootstrap validation
+            var form = document.getElementById('OTPForm');
+            if (form.checkValidity()) {
+                Swal.fire({
+                    title: "Submit Form?",
+                    text: "Click submit to continue.",
+                    icon: "info",
+                    showCancelButton: true,
+                    confirmButtonColor: '#0000FF',
+                    confirmButtonText: 'Submit',
+                    cancelButtonText: "Cancel",
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Programmatically submit the form
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Valid OTP!',
+                            text: 'Sending your Registration Form.',
+                        }).then(() => {
+                            form.submit();
+
+                        });
+                    }
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    text: 'Please fill in all required fields correctly.',
+                });
+            }
+        };
+    </script>
+
+    @{
+        if (ViewBag.invalidOTP != null)
+        {
+            <script>
+                swal({
+                    title: "Invalid OTP!",
+                    text: "@ViewBag.invalidOTP",
+                    icon: "error"
+                });
+
+            </script>
+        }
+    }
+</body>
+</html>

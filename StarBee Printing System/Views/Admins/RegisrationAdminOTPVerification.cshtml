@@ -1,0 +1,120 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Regisration Admin OTP Verification</title>
+    <link href="~/Bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Authentication Styles/OTPVerification.css" rel="stylesheet" />
+    <style>
+
+        .center-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .otpInput {
+            margin-top: 10px
+        }
+
+            .otpInput input {
+                height: 32px;
+                text-align: center;
+                border: none;
+                border-bottom: 1.5px solid #d2d2d2;
+                margin: 0 10px;
+            }
+
+                .otpInput input:focus {
+                    border-bottom: 1.5px solid royalblue;
+                    outline: none;
+                }
+    </style>
+</head>
+<body>
+    <div class="center-container">
+        <div class="card">
+            <form class="form" id="adminOTPForm" action="../Admins/RegisrationAdminOTPVerification" method="post" enctype="multipart/form-data">
+                <div class="title">
+                    OTP
+                </div>
+                <div class="title">
+                    Admin Verification Code
+                </div>
+                <p class="message">
+                    We have sent a verification code to your email.
+                </p>
+                <div class="otpInput">
+                    <input id="input1" name="pinCode" type="text" required>
+                </div>
+                <button class="action" id="verifyAccount" type="button">verify me</button>
+            </form>
+        </div>
+    </div>
+    <script src="~/Bootstrap/script/bootstrap.min.js"></script>
+    <script src="~/Bootstrap/script/jquery-3.3.1.slim.min.js"></script>
+    <script src="~/Bootstrap/script/popper.min.js"></script>
+    <script src="~/Scripts/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        document.querySelector('#verifyAccount').onclick = () => {
+            // Trigger Bootstrap validation
+            var form = document.getElementById('adminOTPForm');
+            if (form.checkValidity()) {
+                Swal.fire({
+                    title: "Submit Form?",
+                    text: "Click submit to continue.",
+                    icon: "info",
+                    showCancelButton: true,
+                    confirmButtonColor: '#0000FF',
+                    confirmButtonText: 'Submit',
+                    cancelButtonText: "Cancel",
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Programmatically submit the form
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Valid OTP!',
+                            text: 'Sending your Registration Form.',
+                        }).then(() => {
+                            form.submit();
+
+                        });
+                    }
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    text: 'Please fill in all required fields correctly.',
+                });
+            }
+        };
+    </script>
+
+    @{
+        if (ViewBag.invalidOTP != null)
+        {
+            <script>
+                swal({
+                    title: "Invalid OTP!",
+                    text: "@ViewBag.invalidOTP",
+                    icon: "error"
+                });
+
+            </script>
+        }
+    }
+</body>
+</html>
+

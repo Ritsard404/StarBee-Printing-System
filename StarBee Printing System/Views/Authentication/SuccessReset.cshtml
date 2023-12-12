@@ -1,0 +1,37 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Success Reset</title>
+    <link href="~/Bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+
+        .center-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div class="center-container">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">Password Reset Successful</h3>
+                <p class="card-text">Your new password has been created successfully. <br>Please click the link below to log in:</p>
+                <a href="~/Authentication/LogIn" class="card-link">Log In</a>
+            </div>
+        </div>
+    </div>
+    <script src="~/Bootstrap/script/popper.min.js"></script>
+    <script src="~/Bootstrap/script/jquery-3.3.1.slim.min.js"></script>
+    <script src="~/Bootstrap/script/bootstrap.min.js"></script>
+</body>
+</html>

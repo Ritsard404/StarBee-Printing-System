@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33328.57
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarBee Printing System", "StarBee Printing System\StarBee Printing System.csproj", "{488A70BC-65CC-46C3-8310-1AEAB2D39D4D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{488A70BC-65CC-46C3-8310-1AEAB2D39D4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{488A70BC-65CC-46C3-8310-1AEAB2D39D4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{488A70BC-65CC-46C3-8310-1AEAB2D39D4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{488A70BC-65CC-46C3-8310-1AEAB2D39D4D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B0661DBD-D949-4A4B-8B7D-C9F0AA0BCC00}
+	EndGlobalSection
+EndGlobal

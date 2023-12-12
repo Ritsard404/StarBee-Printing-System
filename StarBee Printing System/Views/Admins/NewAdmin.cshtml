@@ -1,0 +1,160 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>NewAdmin</title>
+
+    <link href="~/Bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+
+        .center-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div class="container center-container">
+        <form id="adminForm" class="needs-validation" action="../Admins/NewAdmin" method="post" enctype="multipart/form-data" novalidate>
+            <div class="row">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <h3 class="card-title text-center">Register Account</h3>
+                        </div><br />
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="adminFname">First Name</label>
+                                <input type="text" class="form-control" id="adminFname" name="adminFname" placeholder="First Name" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="adminLname">Last Name</label>
+                                <input type="text" class="form-control" id="adminLname" name="adminLname" placeholder="Last Name" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="adminEmail">Email</label>
+                                <input type="email" class="form-control" id="adminEmail" name="adminEmail" placeholder="Tirolgwapa@gmail.com" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="adminPnum">Contact Number</label>
+                                <input type="text" class="form-control" id="adminPnum" name="adminPnum" pattern="[0-9]{11}" placeholder="090987654321" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="adminPass">Password</label>
+                                <input type="password" class="form-control" id="adminPass" name="adminPass" pattern=".{8,}" placeholder="Password" required>
+                                <div class="valid-feedback">
+                                    Valid Password
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="adminConPass">Confirm Password</label>
+                                <input type="password" class="form-control" id="adminConPass" placeholder="Re-enter Password" oninput='this.setCustomValidity(this.value != document.getElementById("adminPass").value ? "Passwords do not match." : "")' required>
+                                <div class="valid-feedback">
+                                    Password match!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                                <label class="form-check-label" for="invalidCheck">
+                                    Agree to terms and conditions
+                                </label>
+                                <div class="invalid-feedback">
+                                    You must agree before submitting.
+                                </div>
+                            </div>
+                        </div><br />
+                        <button class="btn btn-primary" type="submit" id="submitForm">Submit form</button>
+                        <button class="btn btn-secondary" type="button" id="resetForm">Reset</button>
+                    </div>
+                </div>
+                <span>Already have an account? <a href="~/Authentication/LogIn">Sign In</a></span>
+            </div>
+
+        </form>
+    </div>
+
+    <script src="~/Scripts/jquery/jquery-3.7.1.js"></script>
+    <script src="~/Bootstrap/script/popper.min.js"></script>
+    <script src="~/Bootstrap/script/jquery-3.3.1.slim.min.js"></script>
+    <script src="~/Bootstrap/script/bootstrap.min.js"></script>
+    <script src="~/Scripts/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+         //Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+
+
+        $(function () {
+            $("input[name='adminPnum']").on('input', function (e) {
+                $(this).val($(this).val().replace(/[^0-9]/g, ''));
+            });
+        });
+
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        document.querySelector('#resetForm').onclick = () => {
+            Swal.fire({
+                title: "Resetform?",
+                text: "Click reset to continue.",
+                icon: "error",
+                showCancelButton: true,
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: 'reset',
+                cancelButtonText: "cancel",
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire("Reset!", "Your form is reset!", "success").then(() => {
+                        // Reset the form here
+                        document.getElementById('customerForm').reset();
+                    });
+                }
+            });
+        };
+
+    </script>
+</body>
+</html>

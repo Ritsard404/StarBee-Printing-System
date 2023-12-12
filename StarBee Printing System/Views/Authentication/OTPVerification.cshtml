@@ -1,0 +1,119 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>OTP Verification</title>
+    <link href="~/Content/Authentication Styles/OTPVerification.css" rel="stylesheet" />
+    <link href="~/Bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+
+        .center-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div class="center-container">
+        <div class="card">
+            <form class="form" id="OTPForm" action="../Authentication/OTPVerification" method="post" enctype="multipart/form-data">
+                <div class="title">
+                    OTP
+                </div>
+                <div class="title">
+                    Verification Code
+                </div>
+                <p class="message">
+                    We have sent a verification code to your email.
+                </p>
+                <div class="inputs">
+                    <input id="input1" name="otp1" pattern="[0-9]" type="text" maxlength="1" oninput="moveToNext(this)" required>
+                    <input id="input2" name="otp2" pattern="[0-9]" type="text" maxlength="1" oninput="moveToNext(this)" required>
+                    <input id="input3" name="otp3" pattern="[0-9]" type="text" maxlength="1" oninput="moveToNext(this)" required>
+                    <input id="input4" name="otp4" pattern="[0-9]" type="text" maxlength="1" oninput="moveToNext(this)" required>
+                </div>
+                <button class="action" type="button" id="verify">verify me</button>
+            </form>
+        </div>
+    </div>
+    <script src="~/Bootstrap/script/bootstrap.min.js"></script>
+    <script src="~/Bootstrap/script/jquery-3.3.1.slim.min.js"></script>
+    <script src="~/Bootstrap/script/popper.min.js"></script>
+    <script src="~/Scripts/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.querySelector('#verify').onclick = () => {
+            Swal.fire({
+                title: "OTP Verification",
+                text: "Click ok to verify.",
+                icon: "info",
+                showCancelButton: true,
+                confirmButtonText: 'Verify',
+                cancelButtonText: "Cancel",
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire("Submitted!", "Your OTP code was submitted for verification!", "success").then(() => {
+                        // Reset the form here
+                        document.getElementById('OTPForm').submit()
+                    });
+                }
+            });
+        };
+
+        function moveToNext(currentInput) {
+            if (currentInput.value.length >= 1) {
+                var nextInput = currentInput.nextElementSibling;
+
+                if (nextInput != null) {
+                    nextInput.focus();
+                }
+            }
+        }
+
+        $(function () {
+            $("input[name='otp1']").on('input', function (e) {
+                $(this).val($(this).val().replace(/[^0-9]/g, ''));
+            });
+        });
+        $(function () {
+            $("input[name='otp2']").on('input', function (e) {
+                $(this).val($(this).val().replace(/[^0-9]/g, ''));
+            });
+        });
+        $(function () {
+            $("input[name='otp3']").on('input', function (e) {
+                $(this).val($(this).val().replace(/[^0-9]/g, ''));
+            });
+        });
+        $(function () {
+            $("input[name='otp4']").on('input', function (e) {
+                $(this).val($(this).val().replace(/[^0-9]/g, ''));
+            });
+        });
+    </script>
+
+    @{
+        if (ViewBag.invalidOTP != null)
+        {
+            <script>
+                swal({
+                    title: "Invalid OTP!",
+                    text: "@ViewBag.invalidOTP",
+                    icon: "error"
+                });
+
+            </script>
+        }
+    }
+</body>
+</html>

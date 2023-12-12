@@ -1,0 +1,150 @@
+﻿
+@{
+    ViewBag.Title = "Edit Profile";
+    Layout = "~/Views/Shared/_Navigation.cshtml";
+}
+
+<style>
+    body {
+        background-color: #e2e8f0;
+        margin-top: 20px;
+    }
+
+    .card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 0 solid transparent;
+        border-radius: .25rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 2px 6px 0 rgb(218 218 253 / 65%), 0 2px 6px 0 rgb(206 206 238 / 54%);
+    }
+
+    .me-2 {
+        margin-right: .5rem !important;
+    }
+</style>
+
+<div class="container">
+    <div class="main-body">
+        <div class="row">
+            <p class="text-muted font-size-sm">Edit Profile</p>
+
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+                            <div class="mt-3">
+                                <h4>@(ViewBag.editInfo?.FirstName ?? "") @(ViewBag.editInfo?.LastName ?? "")</h4>
+                                <p class="text-secondary mb-1">@(ViewBag.editInfo?.BusinessName ?? "")</p>
+                                <p class="text-muted font-size-sm">@(ViewBag.editInfo?.CustomerAddress ?? "")</p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <form id="UpdateInfo" class="form" action="../Profile/EditProfile" method="post" enctype="multipart/form-data">
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">First Name</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" name="NewFname" class="form-control" value="@(ViewBag.editInfo?.FirstName ?? "")" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Last Name</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" name="newLname" class="form-control" value="@(ViewBag.editInfo?.LastName ?? "")" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Phone</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" name="newPnum" class="form-control" pattern="[0-9]{11}" value="@(ViewBag.editInfo?.PhoneNumber?? "")" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Business Name</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" name="newBname" class="form-control" value="@(ViewBag.editInfo?.BusinessName?? "")" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Address</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" name="newAddress" class="form-control" value="@(ViewBag.editInfo.CustomerAddress?? "")" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="button" id="saveChanges" class="btn btn-primary px-4" value="Save Changes">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+    document.querySelector('#saveChanges').onclick = () => {
+            // Trigger Bootstrap validation
+            var form = document.getElementById('UpdateInfo');
+            if (form.checkValidity()) {
+                Swal.fire({
+                    title: "Update Info?",
+                    text: "Click submit to continue.",
+                    icon: "info",
+                    showCancelButton: true,
+                    confirmButtonText: 'Submit',
+                    cancelButtonText: "Cancel",
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Programmatically submit the form
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Saved!',
+                            text: 'saved Information Changes.',
+                        }).then(() => {
+                            form.submit();
+
+                        });
+                    }
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    text: 'Please fill in all required fields correctly.',
+                });
+            }
+        };
+</script>
+

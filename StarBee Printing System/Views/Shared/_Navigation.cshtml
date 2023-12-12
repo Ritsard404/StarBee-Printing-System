@@ -1,0 +1,262 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title - Star Bee Printing</title>
+    @RenderSection("headSection", required: false)
+    <link href="~/Images/logo.png" rel="icon" type="image/x-icon"/>
+
+    <link href="~/Content/boxicons.min.css" rel="stylesheet" />
+    <link href="~/Content/NavigationStyle.css" rel="stylesheet" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href='https://unpkg.com/boxicons@2.1.4/dist/boxicons.js' rel='stylesheet'>
+    <link href="~/Bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+
+</head>
+<body>
+    <div class="sidebar close">
+        <div class="logo-details text-center">
+            <img src="~/Images/logo.png" style="width:70px; margin-top:50px;" class="rounded mx-auto d-block" />
+        </div>
+        <ul class="nav-links">
+            <li>
+                <a href="#">
+                    <i class='bx bx-grid-alt'></i>
+                    <span class="link_name">Dashboard</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="#">Category</a></li>
+                </ul>
+            </li>
+            <li>
+                <div class="iocn-link">
+                    <a href="#">
+                        <i class='bx bx-collection'></i>
+                        <span class="link_name">Category</span>
+                    </a>
+                    <i class='bx bxs-chevron-down arrow'></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="#">Category</a></li>
+                    <li><a href="#">HTML & CSS</a></li>
+                    <li><a href="#">JavaScript</a></li>
+                    <li><a href="#">PHP & MySQL</a></li>
+                </ul>
+            </li>
+            <li>
+                <div class="iocn-link">
+                    <a href="#">
+                        <i class='bx bx-book-alt'></i>
+                        <span class="link_name">Posts</span>
+                    </a>
+                    <i class='bx bxs-chevron-down arrow'></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="#">Posts</a></li>
+                    <li><a href="#">Web Design</a></li>
+                    <li><a href="#">Login Form</a></li>
+                    <li><a href="#">Card Design</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-pie-chart-alt-2'></i>
+                    <span class="link_name">Analytics</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="#">Analytics</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-line-chart'></i>
+                    <span class="link_name">Chart</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="#">Chart</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-compass'></i>
+                    <span class="link_name">Explore</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="#">Explore</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-history'></i>
+                    <span class="link_name">History</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="#">History</a></li>
+                </ul>
+            </li>
+            @if (Session["role"] != null && Session["role"].ToString() == "Admin")
+            {
+                <li>
+                    <div class="icon-link">
+                        <a href="#">
+                            <i class='bx bxs-user-account'></i>
+                            <span class="link_name">Accounts</span>
+                        </a>
+                        <i class='bx bxs-chevron-down arrow'></i>
+                    </div>
+                    <ul class="sub-menu">
+                        <li><a class="link_name" href="#">Accounts</a></li>
+                        <li><a href="~/Management/CustomerAccounts">Customers</a></li>
+                        <li><a href="~/Management/AdminAccounts">Admins</a></li>
+                        <li><a href="~/Admins/NewAdmin">Add New Admin</a></li>
+                    </ul>
+                </li>
+            }
+            <li>
+                @if (Session["role"] != null)
+                {
+                    if (Session["role"].ToString() == "Admin")
+                    {
+
+                        <a href="@Url.Action("AdminProfile", "Admins")">
+                            <i class='bx bxs-user-rectangle'></i>
+                            <span class="link_name">Profile</span>
+                        </a>
+
+                        <ul class="sub-menu blank">
+                            <li><a class="link_name" href="@Url.Action("AdminProfile", "Admins")">Profile</a></li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("CustomerProfile", "Profile")">
+                            <i class='bx bxs-user-rectangle'></i>
+                            <span class="link_name">Profile</span>
+                        </a>
+
+                        <ul class="sub-menu blank">
+                            <li><a class="link_name" href="@Url.Action("CustomerProfile", "Profile")">Profile</a></li>
+                        </ul>
+                    }
+                }
+            </li>
+
+            <li>
+                <div class="profile-details">
+                    <div class="profile-content">
+                        <img src="~/Images/logo.png" alt="profileImg" />
+                    </div>
+                    <div class="name-job">
+                        @if (Session["userName"] != null)
+                        {
+                            <div class="profile_name" style="margin-left:10px;">@Session["userName"].ToString()</div>
+                        }
+                        else
+                        {
+                            <div class="profile_name" style="margin-left:10px;">Bai na bai</div>
+                        }
+
+                        @if (Session["userBusiness"] != null)
+                        {
+                            <div class="job" style="margin-left:10px;">@Session["userBusiness"].ToString()</div>
+                        }
+                        else if (Session["role"] != null)
+                        {
+                            <div class="job" style="margin-left:10px;">@Session["role"].ToString()</div>
+                        }
+                        else
+                        {
+                            <div class="job" style="margin-left:10px;">Developer</div>
+                        }
+
+                    </div>
+                    <a href="@Url.Action("Logout", "Authentication")" onclick="return confirm('Click ok to continue logout.');">
+                        <i class='bx bx-log-out'></i>
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    @*@if (Session["userEmail"] == null)
+    {
+        <script>
+        window.location.href = '@Url.Action("Logout", "Authentication")';
+        </script>
+    }*@
+
+    <section class="home-section">
+        <div class="home-content">
+            <i class='bx bx-menu'></i>
+            <span class="text">Star Bee Printing</span>
+        </div>
+        <div class="home-content" style="margin: 20px;">
+            @RenderBody()
+        </div><br /><br /><hr class="m-3" />
+        <div class="d-flex align-items-center justify-content-center">
+            <footer class="text-center">
+                <p>&copy; @DateTime.Now.Year - Star Bee Printing</p>
+            </footer>
+        </div>
+    </section>
+
+    <script src="~/Bootstrap/script/popper.min.js"></script>
+    <script src="~/Bootstrap/script/jquery-3.3.1.slim.min.js"></script>
+    <script src="~/Bootstrap/script/bootstrap.min.js"></script>
+    <script src="~/Scripts/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/DataTables/js/jquery.dataTables.min.js"></script>
+    <script>
+        let arrow = document.querySelectorAll(".arrow");
+        for (var i = 0; i < arrow.length; i++) {
+            arrow[i].addEventListener("click", (e) => {
+                let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
+                arrowParent.classList.toggle("showMenu");
+            });
+        }
+        let sidebar = document.querySelector(".sidebar");
+        let sidebarBtn = document.querySelector(".bx-menu");
+        console.log(sidebarBtn);
+        sidebarBtn.addEventListener("click", () => {
+            sidebar.classList.toggle("close");
+        });
+
+        function Validate(ctl, event) {
+            event.preventDefault();
+            swal({
+                title: "Do you want to Logout?",
+                text: "Click logout to continue",
+                type: "info",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Save",
+                cancelButtonText: "Cancel",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        if (validateData() == true) {
+                            $("#CreateForm").submit();
+                        }
+                    }
+                });
+        }
+
+        $(document).ready(function () {
+            $(".tableAccounts").prepend($("<thead></thead>").append($(this).find("tr:first"))).dataTable({ ordering: false });
+        });
+
+    </script>
+
+</body>
+</html>

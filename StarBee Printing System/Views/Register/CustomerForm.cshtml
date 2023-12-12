@@ -1,0 +1,249 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Account Registration</title>
+
+    <link href="~/Bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+
+        .center-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <form id="customerForm" class="needs-validation" action="../Register/CustomerForm" method="post" enctype="multipart/form-data" onreset="return submitForm(this);" novalidate>
+            <div class="container center-container">
+                <div class="row">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <h3 class="card-title text-center">Register Account</h3>
+                            </div><br />
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="custFname">First Name</label>
+                                    <input type="text" class="form-control" id="custFname" name="custFname" placeholder="First Name" required>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="custLname">Last Name</label>
+                                    <input type="text" class="form-control" id="custLname" name="custLname" placeholder="Last Name" required>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="custPnum">Contact Number</label>
+                                    <input type="text" class="form-control" id="custPnum" name="custPnum" pattern="[0-9]{11}" placeholder="090987654321" required>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="custEmail">Email</label>
+                                    <input type="email" class="form-control" id="custEmail" name="custEmail" placeholder="Tirolgwapa@gmail.com" required>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="custFname">Business Name</label>
+                                    <input type="text" class="form-control" id="custBname" name="custBname" placeholder="Business Name" required>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 mb-3">
+                                    <label for="custAddress">Address</label>
+                                    <input type="text" class="form-control" id="custAddress" name="custAddress" placeholder="Address" required>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="custPass">Password</label>
+                                    <input type="password" class="form-control" id="custPass" name="custPass" pattern=".{8,}" placeholder="Password" required>
+                                    <div class="valid-feedback">
+                                        Valid Password
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="custConPass">Confirm Password</label>
+                                    <input type="password" class="form-control" id="custConPass" placeholder="Re-enter Password" oninput='this.setCustomValidity(this.value != document.getElementById("custPass").value ? "Passwords do not match." : "")' required>
+                                    <div class="valid-feedback">
+                                        Password match!
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                                    <label class="form-check-label" for="invalidCheck">
+                                        Agree to terms and conditions
+                                    </label>
+                                    <div class="invalid-feedback">
+                                        You must agree before submitting.
+                                    </div>
+                                </div>
+                            </div><br />
+                            <button class="btn btn-primary" type="submit" id="submitForm">Submit form</button>
+                            <button class="btn btn-secondary" type="button" id="resetForm">Reset</button>
+
+                        </div>
+                    </div>
+                    <span>Already have an account? <a href="~/Authentication/LogIn">Sign In</a></span>
+                </div>
+            </div>
+            
+        </form>
+    </div>
+    <script src="~/Scripts/jquery/jquery-3.7.1.js"></script>
+    <script src="~/Bootstrap/script/popper.min.js"></script>
+    <script src="~/Bootstrap/script/jquery-3.3.1.slim.min.js"></script>
+    <script src="~/Bootstrap/script/bootstrap.min.js"></script>
+    <script src="~/Scripts/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict';
+            window.addEventListener('load', function () {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Validation Error',
+                                text: 'Please fill in all required fields correctly.',
+                            });
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+
+        //document.addEventListener('DOMContentLoaded', function () {
+        //    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        //    var forms = document.getElementsByClassName('needs-validation');
+
+        //    // Loop over them and prevent submission
+        //    var validation = Array.prototype.filter.call(forms, function (form) {
+        //        form.addEventListener('submit', function (event) {
+        //            if (form.checkValidity() === false) {
+        //                event.preventDefault();
+        //                event.stopPropagation();
+        //            } else {
+        //                // Show SweetAlert2 confirmation
+        //                Swal.fire({
+        //                    title: "Register Account?",
+        //                    text: "Click OK to continue register",
+        //                    icon: "info",
+        //                    showCancelButton: true,
+        //                    confirmButtonColor: '#DD6B55',
+        //                    confirmButtonText: 'OK',
+        //                    cancelButtonText: "Cancel",
+        //                    allowOutsideClick: false,
+        //                    allowEscapeKey: false,
+        //                }).then((result) => {
+        //                    if (result.isConfirmed) {
+        //                        //Swal.fire("Registered!", "Your new Account is successfully registered!", "success").then(() => {
+        //                            // Reset the form here
+        //                        form.submit();
+        //                        /*});*/
+        //                    } 
+        //                });
+        //            }
+
+        //            form.classList.add('was-validated');
+        //        }, false);
+        //    });
+        //});
+
+
+        $(function () {
+            $("input[name='custPnum']").on('input', function (e) {
+                $(this).val($(this).val().replace(/[^0-9]/g, ''));
+            });
+        });
+
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        document.querySelector('#resetForm').onclick = () => {
+            Swal.fire({
+                title: "Reset Form?",
+                text: "Click reset to continue.",
+                icon: "error",
+                showCancelButton: true,
+                confirmButtonText: 'reset',
+                cancelButtonText: "cancel",
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire("Reset!", "Your form is reset!", "success").then(() => {
+                        // Reset the form here
+                        document.getElementById('customerForm').reset();
+                    });
+                }
+            });
+        };
+        //// Example starter JavaScript for disabling form submissions if there are invalid fields
+        //document.querySelector('#submitForm').onclick = () => {
+        //    // Trigger Bootstrap validation
+        //    var form = document.getElementById('customerForm');
+        //    if (form.checkValidity()) {
+        //        Swal.fire({
+        //            title: "Submit Form?",
+        //            text: "Click submit to continue.",
+        //            icon: "info",
+        //            showCancelButton: true,
+        //            confirmButtonColor: '#0000FF',
+        //            confirmButtonText: 'Submit',
+        //            cancelButtonText: "Cancel",
+        //            allowOutsideClick: false,
+        //            allowEscapeKey: false,
+        //        }).then((result) => {
+        //            if (result.isConfirmed) {
+        //                // Programmatically submit the form
+        //                form.submit();
+        //            }
+        //        });
+        //    } else {
+        //        Swal.fire({
+        //            icon: 'error',
+        //            title: 'Validation Error',
+        //            text: 'Please fill in all required fields correctly.',
+        //        });
+        //    }
+        //};
+
+    </script>
+</body>
+</html>

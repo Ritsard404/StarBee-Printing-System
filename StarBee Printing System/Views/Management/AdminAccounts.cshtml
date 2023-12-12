@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "Admin Accounts";
+    Layout = "~/Views/Shared/_Navigation.cshtml";
+}
+
+<style>
+
+    .center-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+
+<div class="container center-container">
+    <div class="card">
+        <div class="card-body">
+            <div class="row text-lg-center">
+                <h3>All Admin Accounts</h3>
+            </div>
+            <div class="row">
+                <hr />
+            </div>
+            <div class="row">
+                <table class="tableAccounts table table-hover">
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Email</th>
+                        <th>Phone Number</th>
+                        <th>Status</th>
+                        <th>Created</th>
+                        <th>Updated</th>
+                        <th>Action</th>
+                        <th>Delete</th>
+                    </tr>
+                    @foreach (var admin in ViewBag.allAdmins)
+                    {
+                <tr>
+                    <td>@admin.FirstName @admin.LastName</td>
+                    <td>@admin.Email</td>
+                    <td>@admin.PhoneNumber</td>
+                    <td>@admin.Status</td>
+                    <td>@admin.Created_at</td>
+                    <td>@admin.Updated_at</td>
+                    @if (admin.Status == "Active")
+                    {
+                        <td>
+                            <a href="@Url.Action("SuspendCustomerAccount", "Management", new {id = admin.Id})" class="btn btn-success" onclick="return confirm('Are you sure you want to suspend this admin?')">Suspend</a>
+                        </td>
+                    }
+                    else if (admin.Status == "Suspend")
+                    {
+
+                        <td>
+                            <a href="@Url.Action("UnsuspendCustomerAccount", "Management", new {id = admin.Id})" class="btn btn-warning" onclick="return confirm('Are you sure you want to Unsuspend this admin?')">Unsuspend</a>
+                        </td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+
+                    <td>
+                        <a href="@Url.Action("DeleteCustomerAccount", "Management", new {id = admin.Id})" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this admin?')">Delete</a>
+                    </td>
+                </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div> 
